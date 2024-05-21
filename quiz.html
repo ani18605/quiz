@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="quiz-container" id="quiz">
+        <div class="hud">
+            <div class="hud-item">
+                <p id="progressText" class="hud-prefix">
+                    Question 1
+                </p>
+            </div>
+            <div class="hud-item">
+                <p class="hud-prefix">
+                    Score
+                </p>
+                <h1 class="hud-main-text" id="score">0</h1>
+            </div>
+        </div>
+        <div class="quiz-header">
+            <h2 id="question">Question text</h2>
+            <ul>
+                <li>
+                    <input type="radio" name="answer" class="answer" id="a">
+                    <label for="a" id="a_text" class="choice">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="answer" class="answer" id="b">
+                    <label for="b" id="b_text" class="choice">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="answer" class="answer" id="c">
+                    <label for="c" id="c_text" class="choice">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="answer" class="answer" id="d">
+                    <label for="d" id="d_text" class="choice">Answer</label>
+                </li>
+            </ul>
+        </div>
+        <div id="progressBarContainer">
+            <div id="progressBarFull"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
