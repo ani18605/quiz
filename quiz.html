@@ -20,25 +20,31 @@
                 </p>
                 <h1 class="hud-main-text" id="score">0</h1>
             </div>
+            <div class="hud-item">
+                <p class="hud-prefix">
+                    Time
+                </p>
+                <h1 class="hud-main-text" id="timer">30</h1>
+            </div>
         </div>
         <div class="quiz-header">
             <h2 id="question">Question text</h2>
             <ul>
                 <li>
-                    <input type="radio" name="answer" class="answer" id="a">
-                    <label for="a" id="a_text" class="choice">Answer</label>
+                    <input type="radio" name="answer" class="answer" id="1">
+                    <label for="1" class="choice">Answer</label>
                 </li>
                 <li>
-                    <input type="radio" name="answer" class="answer" id="b">
-                    <label for="b" id="b_text" class="choice">Answer</label>
+                    <input type="radio" name="answer" class="answer" id="2">
+                    <label for="2" class="choice">Answer</label>
                 </li>
                 <li>
-                    <input type="radio" name="answer" class="answer" id="c">
-                    <label for="c" id="c_text" class="choice">Answer</label>
+                    <input type="radio" name="answer" class="answer" id="3">
+                    <label for="3" class="choice">Answer</label>
                 </li>
                 <li>
-                    <input type="radio" name="answer" class="answer" id="d">
-                    <label for="d" id="d_text" class="choice">Answer</label>
+                    <input type="radio" name="answer" class="answer" id="4">
+                    <label for="4" class="choice">Answer</label>
                 </li>
             </ul>
         </div>
@@ -46,6 +52,8 @@
             <div id="progressBarFull"></div>
         </div>
     </div>
+    <audio id="audio" src="au.mp3" preload="auto"></audio>
+    <audio id="audio1" src="aud.mp3" preload="auto"></audio>
     <script src="script.js"></script>
 </body>
 </html>
