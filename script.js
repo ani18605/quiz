@@ -70,16 +70,58 @@ const choices = document.querySelectorAll('.choice');
 const progressText = document.getElementById('progressText');
 const scoreText = document.getElementById('score');
 const progressBarFull = document.getElementById('progressBarFull');
-
+const timerElement = document.getElementById('timer');
 let currentQuestionIndex = 0;
 let score = 0;
+let acceptingAnswers = false;
+const startingTime = 30;
+let time = startingTime;
+let timerInterval;
+function startTimerForQuestion() {
+    time = startingTime;
+    timerElement.innerText = time;
+    timerInterval = setInterval(updateTimer, 1000);
+}
+function stopTimer() {
+    clearInterval(timerInterval);
+}
+function updateTimer() {
+    if (time <= 10) {
+        timerElement.style.color = 'red';
+        if (!document.getElementById('audio').paused) {
+            document.getElementById('audio').currentTime = 0;
+        } else {
+            document.getElementById('audio').play();
+        }
+        if (!document.getElementById('audio1').paused) {
+            document.getElementById('audio1').pause();
+        }
+    } else {
+        timerElement.style.color = '';
+        if (!document.getElementById('audio1').paused) {
+            document.getElementById('audio1').currentTime = 0; 
+        } else {
+            document.getElementById('audio1').play();
+        }
+        if (!document.getElementById('audio').paused) {
+            document.getElementById('audio').pause();
+        }
+    }
+    time--;
+    timerElement.innerText = time;
+
+    if (time <= 0) {
+        clearInterval(timerInterval);
+        localStorage.setItem('mostRecentScore', score);
+        window.location.href = 'end.html';
+    }
+}
 
 function startGame() {
     currentQuestionIndex = 0;
     score = 0;
     showQuestion();
 }
-
 function showQuestion() {
     const currentQuestion = questions[currentQuestionIndex];
     questionElement.innerText = currentQuestion.question;
@@ -87,14 +129,22 @@ function showQuestion() {
     choices.forEach((choice, index) => {
         choice.innerText = currentQuestion['choice' + (index + 1)];
         choice.dataset.answer = index + 1;
-        choice.classList.remove('correct', 'incorrect');
+        choice.classList.remove('correct', 'incorrect', 'selected');
+        const input = choice.previousElementSibling;
+        if (input) {
+            input.checked = false;
+        }
     });
 
     progressText.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
     progressBarFull.style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+    acceptingAnswers = true;
+    startTimerForQuestion();
 }
-
 function checkAnswer(selectedChoice) {
+    if (!acceptingAnswers) return;
+    acceptingAnswers = false;
+
     const selectedAnswer = parseInt(selectedChoice.dataset.answer);
     const currentQuestion = questions[currentQuestionIndex];
     if (selectedAnswer === currentQuestion.answer) {
@@ -114,10 +164,12 @@ function checkAnswer(selectedChoice) {
         localStorage.setItem('mostRecentScore', score);
         window.location.href = 'end.html';
     }
-}
 
+    stopTimer(); 
+}
 choices.forEach(choice => {
     choice.addEventListener('click', () => {
+        if (!acceptingAnswers) return;
         if (!choice.classList.contains('correct') && !choice.classList.contains('incorrect')) {
             checkAnswer(choice);
         }
